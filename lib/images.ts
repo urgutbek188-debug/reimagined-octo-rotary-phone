@@ -18,7 +18,7 @@ export const LINKS = {
   // Your Gumroad product page for The Quiet Wealth Blueprint
   gumroad: "https://YOUR-GUMROAD-LINK.gumroad.com/l/quiet-wealth-blueprint",
   // MailerLite form action URL (Forms -> Embedded form -> HTML -> "action")
-  mailerliteAction: "https://assets.mailerlite.com/jsonp/YOUR_ACCOUNT/forms/YOUR_FORM_ID/subscribe",
+ mailerliteAction: "https://assets.mailerlite.com/jsonp/2428495/forms/190073551458403888/subscribe",
   youtube: "https://youtube.com/@warrenmitchell",
   instagram: "https://instagram.com/warrenmitchell",
 } as const;
