@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Focus Blueprint</title>
+<style>
+  :root{
+    --slate:#1f3a5f;        /* deep slate blue - primary */
+    --slate-2:#2c4a6e;      /* lighter slate */
+    --slate-deep:#16293f;   /* darkest slate */
+    --ink:#1c2b3a;          /* body text */
+    --muted:#5d7184;        /* secondary text */
+    --mint:#3ecf8e;         /* mint accent */
+    --mint-soft:#e6f9f0;    /* mint tint panel */
+    --mint-line:#bde7d3;
+    --blue:#3b82f6;         /* blue accent */
+    --blue-soft:#eaf2fe;
+    --line:#e4e9ef;
+    --bg:#ffffff;
+    --panel:#f6f8fb;
+  }
+  *{box-sizing:border-box;}
+  @page{ size:8.5in 11in; margin:0.72in 0 0.72in; }
+  @page:first{ margin:0; }
+  html{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  body{
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    margin:0;
+    line-height:1.66;
+    font-size:11.3pt;
+    background:var(--bg);
+  }
+  h1,h2,h3,h4{font-weight:700;letter-spacing:-.2px;color:var(--slate);}
+
+  /* ---------- PAGE / SECTION ---------- */
+  .page{ padding:0 0.86in; }
+  section.page{ page-break-before:always; }
+  section.cover{ page-break-before:avoid; }
+
+  /* ---------- COVER (full bleed, first page) ---------- */
+  .cover{
+    background:linear-gradient(155deg,#1f3a5f 0%,#244568 50%,#16293f 100%);
+    color:#eaf1f8;
+    height:11in;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:0.95in 0.86in;
+  }
+  .cover-top{display:flex;align-items:center;gap:14px;}
+  .cover-dot{width:13px;height:13px;border-radius:3px;background:var(--mint);transform:rotate(45deg);}
+  .cover-brand{letter-spacing:.4em; font-size:10pt; text-transform:uppercase; color:#aebfce;}
+  .cover-tag{
+    display:inline-block;font-size:9pt;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--slate-deep);background:var(--mint);padding:7px 15px;border-radius:40px;font-weight:700;
+    margin-bottom:24px;
+  }
+  .cover-title{font-size:48pt; line-height:1.03; font-weight:800; margin:0 0 24px; color:#ffffff; letter-spacing:-1px;}
+  .cover-title span{color:var(--mint);}
+  .cover-sub{font-size:14pt; line-height:1.5; color:#c4d2e0; max-width:30em; font-weight:300;}
+  .cover-badges{display:flex;gap:11px;flex-wrap:wrap;margin-top:32px;}
+  .badge{font-size:8.4pt; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(62,207,142,.5); color:var(--mint); padding:7px 13px; border-radius:40px;}
+  .cover-foot{border-top:1px solid rgba(255,255,255,.14); padding-top:20px; display:flex; justify-content:space-between; align-items:flex-end;}
+  .cover-author{font-size:9pt;color:#8da0b3;letter-spacing:.04em;}
+  .cover-author b{display:block;color:#eaf1f8;font-size:13pt;letter-spacing:.02em;margin-top:3px;font-weight:600;}
+  .cover-edition{font-size:8.5pt;color:#7f93a7;letter-spacing:.12em;text-transform:uppercase;text-align:right;}
+
+  /* ---------- HEADINGS ---------- */
+  .kicker{letter-spacing:.24em; text-transform:uppercase; font-size:9pt; color:var(--mint); font-weight:700; margin:0 0 12px;}
+  .kicker.blue{color:var(--blue);}
+  h1.chap{font-size:31pt; line-height:1.06; margin:0 0 8px; color:var(--slate);}
+  .chap-sub{font-size:12.5pt; color:var(--muted); margin:0 0 26px; font-weight:300;}
+  h2{font-size:16pt; margin:30px 0 11px; padding-left:14px; border-left:3px solid var(--mint); page-break-after:avoid;}
+  h3{font-size:11.5pt; margin:20px 0 6px; color:var(--slate-2); text-transform:uppercase; letter-spacing:.05em; page-break-after:avoid;}
+  p{margin:0 0 12px;}
+  strong{color:var(--slate);font-weight:700;}
+  a{color:var(--blue);text-decoration:none;}
+
+  ul,ol{margin:6px 0 14px; padding-left:22px;}
+  li{margin:0 0 7px;}
+  ul.clean{list-style:none;padding-left:2px;}
+  ul.clean li{position:relative;padding-left:26px;}
+  ul.clean li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;background:var(--mint);border-radius:2px;transform:rotate(45deg);}
+
+  .lead{font-size:13.5pt; line-height:1.55; color:#33475a; font-weight:400; margin:0 0 22px;}
+
+  /* ---------- COMPONENTS ---------- */
+  .stat-row{display:flex;gap:14px;margin:24px 0;}
+  .stat{flex:1; background:var(--mint-soft); border:1px solid var(--mint-line); border-radius:12px; padding:18px 16px 15px;}
+  .stat-num{font-size:25pt;font-weight:800;color:var(--slate);line-height:1;}
+  .stat-num span{font-size:11pt;}
+  .stat-lab{font-size:8.6pt;color:var(--muted);margin-top:8px;line-height:1.45;}
+
+  blockquote{
+    margin:24px 0; padding:20px 24px; border:0;
+    background:var(--blue-soft); border-left:4px solid var(--blue); border-radius:0 12px 12px 0;
+  }
+  blockquote .qt{font-size:8.6pt;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 8px;}
+  blockquote p{margin:0;font-size:13.5pt;line-height:1.45;color:var(--slate);font-weight:500;}
+
+  .callout{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:20px 0;}
+  .callout .ct{font-size:9pt;letter-spacing:.16em;text-transform:uppercase;color:var(--mint);font-weight:700;margin:0 0 8px;}
+  .callout .ct.blue{color:var(--blue);}
+  .callout p:last-child{margin-bottom:0;}
+
+  .pull{font-size:17pt; line-height:1.4; color:var(--slate); text-align:center; margin:26px 24px; font-weight:300;}
+  .pull strong{color:var(--mint);font-weight:700;}
+
+  .step{display:flex;gap:16px;margin:0 0 16px;align-items:flex-start;}
+  .step-n{flex:0 0 32px;height:32px;border-radius:9px;background:var(--slate);color:#fff;font-weight:700;font-size:12pt;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+  .step-b h4{font-size:11.2pt;margin:3px 0 4px;}
+  .step-b p{margin:0 0 4px;font-size:10.7pt;}
+  .path{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:9.2pt;background:var(--mint-soft);border:1px solid var(--mint-line);padding:2px 7px;border-radius:5px;color:#1d6b48;}
+
+  /* Action Items box */
+  .ai{background:linear-gradient(160deg,#1f3a5f,#16293f); color:#eaf1f8; border-radius:16px; padding:26px 28px 24px; margin:28px 0 6px;}
+  .ai .ai-head{display:flex;align-items:center;gap:11px;margin:0 0 4px;}
+  .ai .ai-icon{width:26px;height:26px;border-radius:7px;background:var(--mint);color:var(--slate-deep);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13pt;}
+  .ai .ai-title{font-size:13pt;color:#fff;font-weight:700;letter-spacing:.02em;}
+  .ai .ai-sub{font-size:9pt;color:#9db1c4;margin:0 0 18px;letter-spacing:.03em;}
+  .ai ol{list-style:none;counter-reset:ai;padding:0;margin:0;}
+  .ai li{position:relative;padding:0 0 14px 40px;margin:0;counter-increment:ai;font-size:10.8pt;line-height:1.5;}
+  .ai li:last-child{padding-bottom:0;}
+  .ai li::before{content:counter(ai);position:absolute;left:0;top:-1px;width:26px;height:26px;border-radius:50%;background:var(--mint);color:var(--slate-deep);font-weight:800;font-size:10pt;display:flex;align-items:center;justify-content:center;}
+  .ai li b{color:#fff;}
+
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:10pt;}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top;}
+  th{background:var(--slate);color:#fff;font-size:8.8pt;letter-spacing:.05em;text-transform:uppercase;font-weight:700;}
+  tr:nth-child(even) td{background:var(--panel);}
+  td.t{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:9pt;white-space:nowrap;color:#1d6b48;}
+
+  /* TOC */
+  .toc-item{display:flex;align-items:baseline;margin:0 0 18px;}
+  .toc-num{font-weight:800;color:var(--mint);font-size:14pt;flex:0 0 56px;}
+  .toc-txt{flex:1;}
+  .toc-txt b{font-size:12.5pt;display:block;color:var(--slate);}
+  .toc-txt span{font-size:10pt;color:var(--muted);}
+
+  .divider{height:1px;background:var(--line);margin:24px 0;}
+  .small{font-size:9pt;color:var(--muted);}
+  .nobreak{page-break-inside:avoid;break-inside:avoid;}
+  .chap-open{padding-top:6px;}
+</style>
+</head>
+<body>
+
+<!-- ============== COVER ============== -->
+<section class="page cover">
+  <div>
+    <div class="cover-top"><span class="cover-dot"></span><span class="cover-brand">The Focus Blueprint</span></div>
+  </div>
+  <div>
+    <span class="cover-tag">Remote Work · Productivity</span>
+    <h1 class="cover-title">Eliminate Distractions.<br><span>Double Your Output.</span></h1>
+    <p class="cover-sub">A remote worker's field guide to reclaiming deep focus in a world engineered to steal it — without willpower, guilt, or a single paid app.</p>
+    <div class="cover-badges">
+      <span class="badge">No third-party apps</span>
+      <span class="badge">iOS &amp; Android</span>
+      <span class="badge">90-minute deep work</span>
+      <span class="badge">Free Sheets template</span>
+    </div>
+  </div>
+  <div class="cover-foot">
+    <div class="cover-author">Written by<b>[ Your Name Here ]</b></div>
+    <div class="cover-edition">The Focus Blueprint<br>First Edition</div>
+  </div>
+</section>
+
+<!-- ============== TABLE OF CONTENTS ============== -->
+<section class="page">
+  <p class="kicker">What's Inside</p>
+  <h1 style="font-size:27pt;margin:0 0 8px;">Table of Contents</h1>
+  <div class="divider"></div>
+
+  <div class="toc-item">
+    <span class="toc-num">00</span>
+    <span class="toc-txt"><b>Introduction — The Hidden Cost of Distraction</b><span>The 23-minute focus-recovery rule and the real price you pay every day.</span></span>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">01</span>
+    <span class="toc-txt"><b>The Digital Shield</b><span>Automate "Focus Mode" on iOS &amp; Android for work hours — no apps, no subscriptions.</span></span>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">02</span>
+    <span class="toc-txt"><b>Deep Work Blocks</b><span>The 90-minute high-energy cycle and how to ride your brain's natural rhythm.</span></span>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">03</span>
+    <span class="toc-txt"><b>The Action Guide</b><span>The Time-Blocking Google Sheets template that turns effort into measurable output.</span></span>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">04</span>
+    <span class="toc-txt"><b>Your 7-Day Activation Plan</b><span>Put all three systems to work in one focused week.</span></span>
+  </div>
+
+  <div class="divider"></div>
+  <div class="callout nobreak">
+    <p class="ct blue">How to use this book</p>
+    <p>This isn't a book to <em>admire</em>. It's a book to <em>run</em>. Every chapter ends with a prominent <strong>Action Items</strong> box — concrete steps you can finish in under 20 minutes. Don't read all four chapters and "start Monday." Read one chapter, do the steps, then move on. Momentum is the whole game.</p>
+  </div>
+</section>
+
+<!-- ============== INTRODUCTION ============== -->
+<section class="page">
+  <div class="chap-open">
+    <p class="kicker">Introduction</p>
+    <h1 class="chap">The Hidden Cost of Distraction</h1>
+    <p class="chap-sub">Why "just focus harder" has never worked — and what actually does.</p>
+  </div>
+
+  <p class="lead">You didn't go remote to be <em>less</em> productive. You went remote for freedom, focus, and a life that doesn't end at a cubicle wall. So why do so many days end with a to-do list that looks exactly like it did at 9 a.m.?</p>
+
+  <p>Here's the uncomfortable truth: it's not a discipline problem. It's a <strong>design problem</strong>. The apps on your phone, the notifications in your menu bar, and the open-door culture of your own home were all engineered — deliberately — to pull your attention away from deep work. You are not weak-willed. You are outgunned. This book hands you the weapons back.</p>
+
+  <h2>The 23-Minute Rule</h2>
+  <p>In a now-famous study out of the University of California, Irvine, researcher Gloria Mark tracked knowledge workers and measured what happens after an interruption. The finding that should change how you work forever:</p>
+
+  <blockquote class="nobreak">
+    <p class="qt">Key takeaway</p>
+    <p>After a single interruption, it takes an average of <strong>23 minutes and 15 seconds</strong> to fully return to the original task.</p>
+  </blockquote>
+
+  <p>Read that again. Not 23 seconds. Twenty-three <em>minutes</em>. That "quick glance" at a Slack ping doesn't cost you the five seconds it takes to read it — it costs you the next twenty-three minutes of fractured, shallow re-entry while your brain claws its way back to where it was. And that's the <em>average</em>. For complex creative work, it's often worse.</p>
+
+  <p>Now do the math on a normal remote workday.</p>
+
+  <div class="stat-row nobreak">
+    <div class="stat"><div class="stat-num">23<span>min</span></div><div class="stat-lab">Average time to fully refocus after one interruption.</div></div>
+    <div class="stat"><div class="stat-num">9.5</div><div class="stat-lab">Average minutes on a task before a knowledge worker self-interrupts or is interrupted.</div></div>
+    <div class="stat"><div class="stat-num">2.1<span>hrs</span></div><div class="stat-lab">Estimated daily output lost to context-switching for the average worker.</div></div>
+  </div>
+
+  <p>If you're interrupted just six times before lunch — a wildly conservative number for anyone with a phone — you may never reach a single state of true concentration all morning. You're not working a 4-hour deep-focus day. You're working a series of <strong>9-minute sprints, each one starting over from zero.</strong></p>
+
+  <h2>The Two Kinds of Distraction</h2>
+  <p>To beat distraction, you have to name it. There are exactly two types, and they require completely different defenses:</p>
+
+  <h3>1. External triggers</h3>
+  <p>The ping, the buzz, the red badge, the spouse in the doorway, the email preview sliding across your screen. These come <em>at</em> you from the outside world. The good news: external triggers are the easiest to defeat with a single, well-built system. That's <strong>Chapter 1 — The Digital Shield.</strong></p>
+
+  <h3>2. Internal triggers</h3>
+  <p>The itch to check your phone "just in case." The sudden urge to research a vacation in the middle of a report. The low-grade anxiety that makes a fresh browser tab feel like relief. These come from <em>inside</em> you — usually as an escape from discomfort, boredom, or uncertainty. You can't block these with software. You defeat them with structure and rhythm. That's <strong>Chapter 2 — Deep Work Blocks.</strong></p>
+
+  <p>And once you've shielded the outside and structured the inside, you need a way to <em>prove it's working</em> — to see your output climb week over week. That's <strong>Chapter 3 — The Action Guide.</strong></p>
+
+  <h2>The Promise of This Book</h2>
+  <p>This is a short book on purpose. You don't need 300 pages of neuroscience to change your week. You need three systems, installed in the right order, that compound:</p>
+
+  <ul class="clean">
+    <li><strong>The Digital Shield</strong> removes the external triggers automatically, so focus isn't a daily act of willpower.</li>
+    <li><strong>Deep Work Blocks</strong> give your now-undistracted brain a high-output rhythm to run inside.</li>
+    <li><strong>The Action Guide</strong> measures the result, so motivation comes from visible progress instead of guilt.</li>
+  </ul>
+
+  <p>Together, these three are why the subtitle of this book isn't an exaggeration. When you stop losing two-plus hours a day to context-switching and pour those hours into structured deep work, doubling your meaningful daily output isn't a stretch goal. It's arithmetic.</p>
+
+  <div class="callout nobreak">
+    <p class="ct">A quick mindset reset</p>
+    <p>Productivity is not about doing <em>more things</em>. It's about protecting the small number of hours where your best work actually happens — and refusing to let anything cheap steal them. Everything that follows serves that one idea.</p>
+  </div>
+
+  <div class="ai nobreak">
+    <div class="ai-head"><span class="ai-icon">✓</span><span class="ai-title">Action Items</span></div>
+    <p class="ai-sub">5 minutes · Establish your baseline before you change anything.</p>
+    <ol>
+      <li><b>Count your interruptions.</b> For the next 2 hours of work, put a tally mark on a sticky note every time you check your phone or switch away from your task. Don't judge it — just count.</li>
+      <li><b>Multiply by 23.</b> Take that number, multiply by 23 minutes, and write the total at the bottom. That's a rough estimate of the focused time you lost <em>today</em>.</li>
+      <li><b>Name your top trigger.</b> Write one sentence: "The thing that pulls me away most is ______." You'll aim your Digital Shield directly at it in Chapter 1.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============== CHAPTER 1 ============== -->
+<section class="page">
+  <div class="chap-open">
+    <p class="kicker">Chapter One</p>
+    <h1 class="chap">The Digital Shield</h1>
+    <p class="chap-sub">Automate "Focus Mode" for work hours — no third-party apps, no subscriptions.</p>
+  </div>
+
+  <p class="lead">Willpower is a terrible security guard. It clocks out the moment you're tired, stressed, or bored. The fix is to remove the decision entirely: build a shield that turns itself on at 9 a.m. and off at 5 p.m. — automatically, every single day, whether you "feel like it" or not.</p>
+
+  <p>The best part? You already own everything you need. Both iPhone and Android ship with a powerful, scheduling-capable focus system built right in. Most people never set it up because nobody walked them through it. This chapter is that walkthrough — step by step, button by button.</p>
+
+  <blockquote class="nobreak">
+    <p class="qt">The core principle</p>
+    <p>Automate, don't decide. A focus mode you must <em>remember</em> to turn on fails within a week. One that arms itself on a schedule protects you on the days your discipline is gone.</p>
+  </blockquote>
+
+  <h2>Part A — iPhone: Build a Scheduled "Work" Focus</h2>
+  <p>Apple's <strong>Focus</strong> feature (Settings → Focus) goes far beyond the old "Do Not Disturb." You can build a custom mode that silences everything except a short whitelist, and have it switch on automatically during work hours. Here's the exact path:</p>
+
+  <div class="step nobreak">
+    <div class="step-n">1</div>
+    <div class="step-b">
+      <h4>Create the Focus</h4>
+      <p>Open <span class="path">Settings → Focus → + (top right) → Custom</span>. Name it <strong>"Work,"</strong> pick a color and icon (a briefcase keeps it obvious on your lock screen), and tap <em>Next</em>.</p>
+    </div>
+  </div>
+  <div class="step nobreak">
+    <div class="step-n">2</div>
+    <div class="step-b">
+      <h4>Set "Allowed People" to almost no one</h4>
+      <p>Choose <strong>Allow Notifications From → People</strong>. Add only the 1–3 humans who could have a genuine emergency — a partner, a child's school, your manager. Everyone else is silenced, not lost; their messages simply wait for you.</p>
+    </div>
+  </div>
+  <div class="step nobreak">
+    <div class="step-n">3</div>
+    <div class="step-b">
+      <h4>Set "Allowed Apps" to your work tools only</h4>
+      <p>Switch to the <strong>Apps</strong> tab and allow only what your job truly requires in real time (e.g., your calendar, maybe one work chat). Choose <strong>"Silence Notifications"</strong> so nothing on the blocklist — social, news, games — can buzz through.</p>
+    </div>
+  </div>
+  <div class="step nobreak">
+    <div class="step-n">4</div>
+    <div class="step-b">
+      <h4>Turn on the automation (the magic step)</h4>
+      <p>Inside the Work Focus, scroll to <strong>"Set a Schedule"</strong> → <strong>Add Schedule</strong>. Set your work hours (e.g., 9:00–12:30 and 1:30–5:00) and days (Mon–Fri). Now the shield arms itself daily with zero input from you.</p>
+    </div>
+  </div>
+  <div class="step nobreak">
+    <div class="step-n">5</div>
+    <div class="step-b">
+      <h4>Create a distraction-free Home Screen</h4>
+      <p>While editing the Work Focus, tap the Home Screen option and select a single, clean page holding <em>only</em> work apps. During work hours your phone literally hides Instagram, news, and games. Setup: long-press the home screen → tap the page dots → uncheck distracting pages for this Focus.</p>
+    </div>
+  </div>
+  <div class="step nobreak">
+    <div class="step-n">6</div>
+    <div class="step-b">
+      <h4>Enable "Focus Filters" (iOS 16+)</h4>
+      <p>Add a <strong>Focus Filter</strong> to silence specific inboxes or switch Safari to a work-only tab group, so personal email never slides into view while you work.</p>
+    </div>
+  </div>
+
+  <div class="callout nobreak">
+    <p class="ct blue">Pro move — the Lock Screen swap</p>
+    <p>iOS lets you link a Lock Screen to each Focus. Make a calm, text-free Lock Screen for Work and a normal one for off-hours. The visual change becomes a Pavlovian cue: see the work screen, go deep. When it's gone, you're truly off the clock.</p>
+  </div>
+
+  <h2>Part B — Android: Build a Scheduled "Focus Mode"</h2>
+  <p>Android gives you <em>two</em> native tools that work beautifully together — both free, both built in. Menu names vary slightly by manufacturer (Samsung, Pixel, etc.), but the path is nearly identical.</p>
+
+  <h3>Tool 1: Focus Mode (pauses distracting apps)</h3>
+  <div class="step nobreak">
+    <div class="step-n">1</div>
+    <div class="step-b">
+      <h4>Open Digital Wellbeing</h4>
+      <p>Go to <span class="path">Settings → Digital Wellbeing &amp; parental controls → Focus mode</span>.</p>
+    </div>
+  </div>
+  <div class="step nobreak">
+    <div class="step-n">2</div>
+    <div class="step-b">
+      <h4>Select your distracting apps</h4>
+      <p>Check every app that pulls you off task — social, video, news, games, shopping. While Focus mode is on, these are <strong>paused</strong>: grayed out, no notifications, unopenable until the session ends.</p>
+    </div>
+  </div>
+  <div class="step nobreak">
+    <div class="step-n">3</div>
+    <div class="step-b">
+      <h4>Set a schedule</h4>
+      <p>Tap <strong>Set a schedule</strong>, choose your work hours and weekdays. Focus mode now starts and stops on its own — the same "automate, don't decide" principle as iPhone.</p>
+    </div>
+  </div>
+
+  <h3>Tool 2: Do Not Disturb with exceptions (silences notifications)</h3>
+  <div class="step nobreak">
+    <div class="step-n">4</div>
+    <div class="step-b">
+      <h4>Configure DND and schedule it</h4>
+      <p>Go to <span class="path">Settings → Sound &amp; vibration → Do Not Disturb</span>. Under <strong>People</strong>, allow calls/messages only from starred (favorite) contacts. Under <strong>Schedules</strong>, add your work hours. Star only your true emergency contacts first, in your Contacts app.</p>
+    </div>
+  </div>
+
+  <h2>The "Out of Sight" Layer (Both Phones)</h2>
+  <p>Software is layer one. Physics is layer two — and it's even more powerful. A landmark study found that the <em>mere presence</em> of your smartphone on the desk — even face-down, even powered off — measurably reduces available cognitive capacity. Your brain spends energy <em>not</em> checking it. So:</p>
+  <ul class="clean">
+    <li><strong>Put the phone in another room</strong> during deep work blocks. Not a desk drawer — a different room. Distance is friction, and friction is your friend.</li>
+    <li><strong>Use a "phone home base."</strong> A small box or shelf by the door where the phone lives during work hours. Out of arm's reach kills the unconscious reach-and-scroll.</li>
+    <li><strong>Grayscale as a last resort.</strong> If you can't separate from the phone, set it to grayscale during work hours (iPhone: Settings → Accessibility → Display &amp; Text Size → Color Filters; Android: Digital Wellbeing). A gray feed is a boring feed.</li>
+  </ul>
+
+  <h2>Don't Forget the Desktop</h2>
+  <p>Your phone isn't the only leak. Seal the computer too:</p>
+  <ul class="clean">
+    <li><strong>macOS:</strong> The same Focus modes sync from your iPhone — turn on "Share across devices" so silencing the phone also silences the Mac. Or use <em>System Settings → Focus</em> directly.</li>
+    <li><strong>Windows:</strong> Settings → System → <strong>Focus / Focus Sessions</strong> hides taskbar badges and silences notifications on a timer.</li>
+    <li><strong>The browser is the real battlefield.</strong> Close every non-essential tab before a deep block. Use a separate browser <em>profile</em> for work with no personal logins — no auto-loaded feeds, no "one quick check."</li>
+    <li><strong>Kill the email auto-refresh.</strong> Set mail to fetch manually, or quit it during deep blocks. Email is a task, not an ambient background process.</li>
+  </ul>
+
+  <div class="callout nobreak">
+    <p class="ct">Handling the guilt of going dark</p>
+    <p>Worried people will think you're ignoring them? Set a status: <em>"Heads-down until 12:30 — I'll respond to everything in one batch then. If it's urgent, call."</em> You'll discover the truth almost no one admits: <strong>99% of "urgent" messages can wait two hours.</strong> The few real emergencies still reach you through your allowed-contacts whitelist.</p>
+  </div>
+
+  <div class="ai nobreak">
+    <div class="ai-head"><span class="ai-icon">✓</span><span class="ai-title">Action Items</span></div>
+    <p class="ai-sub">15 minutes · Build the shield once; it protects you every day after.</p>
+    <ol>
+      <li><b>Build your "Work" Focus.</b> iPhone or Android — follow the steps above and create the custom focus mode now, while the book is open.</li>
+      <li><b>Whitelist 3 people, max.</b> Add only your true emergency contacts. Silence everyone and everything else.</li>
+      <li><b>Set the schedule.</b> Program your real work hours so the shield arms itself automatically tomorrow morning. This is the step 90% of people skip — don't.</li>
+      <li><b>Pick a phone home base.</b> Choose the spot in another room where your phone lives during deep work, starting tomorrow.</li>
+      <li><b>Set your "going dark" status</b> in Slack/email so nobody feels ignored.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============== CHAPTER 2 ============== -->
+<section class="page">
+  <div class="chap-open">
+    <p class="kicker">Chapter Two</p>
+    <h1 class="chap">Deep Work Blocks</h1>
+    <p class="chap-sub">The 90-minute high-energy cycle — and how to ride your brain's natural rhythm.</p>
+  </div>
+
+  <p class="lead">With the external triggers silenced, you have something most remote workers never get: a quiet field to work in. Now you need a rhythm to run inside it. That rhythm already exists in your biology. You just have to stop fighting it.</p>
+
+  <h2>The Science: Your Brain Works in Waves</h2>
+  <p>Your body doesn't run at a constant level all day. It cycles. Sleep researcher Nathaniel Kleitman discovered that our brains move through roughly <strong>90-minute cycles</strong> of higher and lower alertness — not just at night during sleep, but all day long. This daytime pattern is called the <strong>Basic Rest-Activity Cycle (BRAC).</strong></p>
+
+  <p>The practical takeaway is enormous: for about <strong>90 minutes</strong>, your brain can sustain high focus and energy. After that, it naturally dips and needs <strong>15–20 minutes</strong> of genuine recovery before the next high-energy wave. Most people try to power straight through the dip with caffeine and guilt — which is exactly why their afternoons turn to mush. The pros work <em>with</em> the wave instead.</p>
+
+  <blockquote class="nobreak">
+    <p class="qt">Key takeaway</p>
+    <p>Don't manage your time — manage your energy. Time is fixed; energy is renewable, but only if you let it renew.</p>
+  </blockquote>
+
+  <h2>The 90/20 Deep Work Block</h2>
+  <p>Here is the core engine of this book. One block is <strong>90 minutes of single-task deep work, followed by a 20-minute true recovery break.</strong> A full focused day is just 2–4 of these blocks. That's it. That's the whole method.</p>
+
+  <table class="nobreak">
+    <tr><th style="width:26%">Phase</th><th style="width:18%">Time</th><th>What you do</th></tr>
+    <tr><td><strong>Launch</strong></td><td class="t">0–5 min</td><td>Shield on, phone in other room, one task chosen and written down. No "warming up" by checking email.</td></tr>
+    <tr><td><strong>Deep Work</strong></td><td class="t">5–90 min</td><td>One task. Nothing else exists. When a stray thought appears, write it on a parking-lot pad and return instantly.</td></tr>
+    <tr><td><strong>Recovery</strong></td><td class="t">20 min</td><td>Stand, move, get sunlight, hydrate. <em>No screens.</em> This is non-negotiable — it's what recharges the next block.</td></tr>
+  </table>
+
+  <h2>Find Your "Biological Prime Time"</h2>
+  <p>Not all 90-minute blocks are equal. Each of us has a window when focus comes easiest — your <strong>biological prime time.</strong> For most people it's mid-to-late morning, but yours might be early dawn or late evening. Finding it is the single highest-leverage move in this chapter, because you'll guard that window for your hardest, most valuable work.</p>
+  <ul class="clean">
+    <li><strong>Track for 3 days.</strong> Each hour, jot a 1–10 score for your energy and focus. Patterns appear fast.</li>
+    <li><strong>Protect the peak.</strong> Schedule your most demanding block — writing, strategy, coding, design — inside your highest-scoring window. Never spend prime time on email.</li>
+    <li><strong>Demote the trough.</strong> Use your lowest-energy window for shallow work: admin, invoices, scheduling, inbox cleanup. These don't need a sharp brain — so stop wasting one on them.</li>
+  </ul>
+
+  <div class="callout nobreak">
+    <p class="ct">The "one task" rule</p>
+    <p>A deep work block is for <strong>one</strong> task — not "work on the project." Vague targets invite drift. Define the block before you start: <em>"Write the first draft of the client proposal, sections 1–3."</em> A clear finish line keeps your brain from wandering toward the easier dopamine of a new tab.</p>
+  </div>
+
+  <h2>The Parking Lot: Defeating Internal Triggers</h2>
+  <p>Remember the two kinds of distraction from the Introduction? The Digital Shield handled the external ones. The <strong>parking lot</strong> handles the internal ones. Keep a single sheet of paper (or a plain notes file) beside you. Every time your mind throws up a "do this!" or "what about that?", you do <em>not</em> act on it — you write one line and immediately return to your task.</p>
+  <p>This works because the urge to switch tasks is usually your brain's fear of <em>forgetting</em> something, not a real need to do it now. Capturing it on paper tells your brain "it's safe, it's recorded" — and the urge dissolves. At your break, you triage the list. Ninety percent of it turns out to be trivial.</p>
+
+  <h2>What a Recovery Break Actually Is</h2>
+  <p>This is where most people sabotage the whole system. Scrolling your phone for 20 minutes is <strong>not</strong> recovery — it's the same overstimulation that fried your focus in the first place. Real recovery lets the attention system reset. Good breaks:</p>
+  <ul class="clean">
+    <li><strong>Move your body.</strong> A walk, stretching, a few flights of stairs. Movement clears metabolic fog and resets posture.</li>
+    <li><strong>Get daylight.</strong> Even five minutes by a window or outside steadies your circadian rhythm and alertness.</li>
+    <li><strong>Let your mind wander.</strong> Stare out the window. Boredom is when your brain consolidates ideas — protect it.</li>
+    <li><strong>Hydrate and breathe.</strong> A glass of water and ten slow breaths do more for the next block than another coffee.</li>
+  </ul>
+
+  <h3>Easing in: the 50/10 starter</h3>
+  <p>If 90 minutes of unbroken focus feels impossible today, that's normal — focus is a trainable muscle. Start with <strong>50 minutes on / 10 off</strong> for your first week, then stretch to 75/15, then 90/20. Within two to three weeks the longer block will feel natural, and your stamina for deep work will be visibly larger than when you started.</p>
+
+  <div class="ai nobreak">
+    <div class="ai-head"><span class="ai-icon">✓</span><span class="ai-title">Action Items</span></div>
+    <p class="ai-sub">One block · Prove to yourself the rhythm works before you trust it.</p>
+    <ol>
+      <li><b>Schedule one 90-minute block tomorrow</b> (or 50 minutes if you're new). Put it on your calendar now, ideally in your suspected prime-time window.</li>
+      <li><b>Pre-decide the single task.</b> Write the exact, finishable goal for that block on a sticky note tonight.</li>
+      <li><b>Set up your parking lot.</b> Place a blank sheet of paper and a pen where the block will happen.</li>
+      <li><b>Plan the recovery, not just the work.</b> Decide now what your 20-minute screen-free break will be (a walk counts).</li>
+      <li><b>Start a 3-day energy log</b> to find your biological prime time. Score focus 1–10 each hour.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============== CHAPTER 3 ============== -->
+<section class="page">
+  <div class="chap-open">
+    <p class="kicker">Chapter Three</p>
+    <h1 class="chap">The Action Guide</h1>
+    <p class="chap-sub">The Time-Blocking Google Sheets template that turns effort into measured output.</p>
+  </div>
+
+  <p class="lead">What gets measured gets managed — and what gets <em>seen</em> gets repeated. The final system closes the loop: a dead-simple Google Sheet that plans your blocks, tracks what actually happened, and shows your deep-work hours climbing week over week. No app, no fee, no learning curve.</p>
+
+  <p>You don't need fancy software. A single Google Sheet beats every paid productivity app for one reason: <strong>you'll actually use it.</strong> This chapter gives you the exact template to build in about ten minutes — and, more importantly, how to use it so it changes your behavior instead of becoming another abandoned tracker.</p>
+
+  <h2>Why Time-Blocking Beats To-Do Lists</h2>
+  <p>A to-do list tells you <em>what</em> to do. It never tells you <em>when</em> — so the hard, important work gets endlessly bumped by quick, easy tasks. Time-blocking fixes this by giving every task a home on the calendar. You stop asking "what should I do now?" (a question that invites distraction) because you decided yesterday. The decision is already made; you just execute.</p>
+
+  <h2>Build the Sheet: The Daily Tab</h2>
+  <p>Open a new Google Sheet (sheets.new). Name it <strong>"Focus Blueprint Tracker."</strong> On the first tab — name it <strong>"Daily"</strong> — create these columns:</p>
+
+  <table class="nobreak">
+    <tr><th>Column</th><th>Header</th><th>What goes in it</th></tr>
+    <tr><td class="t">A</td><td><strong>Time Block</strong></td><td>The slot, e.g. <span class="path">9:00–10:30</span>. Pre-fill your day in 90-min blocks plus breaks.</td></tr>
+    <tr><td class="t">B</td><td><strong>Planned Task</strong></td><td>The <em>one</em> task for that block. Filled in the night before.</td></tr>
+    <tr><td class="t">C</td><td><strong>Type</strong></td><td>Dropdown: <em>Deep / Shallow / Break / Meeting</em>.</td></tr>
+    <tr><td class="t">D</td><td><strong>Done?</strong></td><td>Dropdown: <em>✓ / Partial / ✗</em>. Honest, not aspirational.</td></tr>
+    <tr><td class="t">E</td><td><strong>Focus (1–5)</strong></td><td>How deep was your focus this block? Self-rated.</td></tr>
+    <tr><td class="t">F</td><td><strong>Notes / Distractions</strong></td><td>What pulled you off, what to fix tomorrow.</td></tr>
+  </table>
+
+  <div class="callout nobreak">
+    <p class="ct blue">Make it foolproof with dropdowns</p>
+    <p>Select column C → <span class="path">Data → Data validation → Dropdown</span> → add Deep, Shallow, Break, Meeting. Repeat for column D. Dropdowns make logging a two-second tap — the difference between a tracker you keep and one you abandon by Thursday.</p>
+  </div>
+
+  <h2>The Magic: A "Score" Tab That Proves Progress</h2>
+  <p>Tracking is pointless if you can't <em>see</em> the trend. Add a second tab called <strong>"Weekly Score."</strong> This is the dashboard that keeps you motivated — it turns invisible effort into a number that goes up. Build a small table:</p>
+
+  <table class="nobreak">
+    <tr><th>Metric</th><th>Formula / Method</th><th>Why it matters</th></tr>
+    <tr><td><strong>Deep Work Hours</strong></td><td class="t">=COUNTIF(Daily!C:C,"Deep")*1.5</td><td>Your North Star number. The one metric to grow.</td></tr>
+    <tr><td><strong>Completion Rate</strong></td><td class="t">=COUNTIF(D:D,"✓")/COUNTA(D:D)</td><td>Are your plans realistic? Under 70% means you over-scheduled.</td></tr>
+    <tr><td><strong>Avg Focus Score</strong></td><td class="t">=AVERAGE(Daily!E:E)</td><td>Is your environment improving? Should rise as your Shield tightens.</td></tr>
+    <tr><td><strong>Top Distraction</strong></td><td class="t">Eyeball column F</td><td>The recurring leak to seal next week.</td></tr>
+  </table>
+
+  <p>Each Friday, copy these four numbers into a running weekly log. Within three weeks you'll have a chart of your <strong>Deep Work Hours</strong> trending upward — and there is no motivator quite like watching that line climb. This is the feedback loop that makes the whole Blueprint self-sustaining: progress you can see is progress you'll protect.</p>
+
+  <div class="callout nobreak">
+    <p class="ct">Want to skip the build? Use the ready-made template.</p>
+    <p>If you'd rather not build it by hand, open the companion <strong>Focus Blueprint Tracker</strong> Google Sheet, go to <span class="path">File → Make a copy</span>, and the Daily tab, dropdowns, and Weekly Score formulas are already wired up. Five seconds to your own private copy.</p>
+  </div>
+
+  <h2>The Three Rituals That Make It Stick</h2>
+  <p>The sheet is only as good as the three small habits around it. Each takes minutes:</p>
+
+  <h3>1. The 5-Minute Evening Plan</h3>
+  <p>Before you log off, fill in tomorrow's Daily tab. Assign your hardest task to your prime-time block. You arrive tomorrow with a battle plan instead of a blank stare — eliminating the morning drift where distraction wins.</p>
+
+  <h3>2. The 30-Second Block Log</h3>
+  <p>At the end of each block, fill in columns D, E, and F. Thirty seconds. This tiny act of honesty is where self-awareness — and improvement — actually comes from.</p>
+
+  <h3>3. The Friday Review</h3>
+  <p>Ten minutes every Friday. Copy your four numbers to the weekly log, read your distraction notes, and choose <strong>one</strong> change for next week. One. Small, compounding adjustments beat dramatic overhauls every time.</p>
+
+  <div class="ai nobreak">
+    <div class="ai-head"><span class="ai-icon">✓</span><span class="ai-title">Action Items</span></div>
+    <p class="ai-sub">10 minutes · Build the loop that makes every other chapter measurable.</p>
+    <ol>
+      <li><b>Create the sheet.</b> Open sheets.new, name it "Focus Blueprint Tracker," and build the 6 Daily columns.</li>
+      <li><b>Add the dropdowns</b> to the Type and Done? columns so logging takes seconds.</li>
+      <li><b>Build the Weekly Score tab</b> with the four formulas above.</li>
+      <li><b>Do tonight's 5-minute plan.</b> Fill in tomorrow's blocks right now — hardest task in prime time.</li>
+      <li><b>Set a recurring Friday reminder</b> titled "Focus Review — 10 min" so the loop never breaks.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============== CHAPTER 4 / ACTIVATION ============== -->
+<section class="page">
+  <div class="chap-open">
+    <p class="kicker blue">Putting It Together</p>
+    <h1 class="chap">Your 7-Day Activation Plan</h1>
+    <p class="chap-sub">Don't install everything at once. Layer the three systems over one week.</p>
+  </div>
+
+  <p class="lead">Knowledge you don't install is just trivia. This plan turns the last three chapters into a single, low-stress week. Each day adds one layer on top of the last, so nothing feels overwhelming and everything compounds.</p>
+
+  <table class="nobreak">
+    <tr><th style="width:22%">Day</th><th>Your one move</th></tr>
+    <tr><td><strong>Day 1 — Baseline</strong></td><td>Count your interruptions for two hours. Multiply by 23. Sit with the real number.</td></tr>
+    <tr><td><strong>Day 2 — Shield Up</strong></td><td>Build and schedule your "Work" Focus on your phone. Whitelist three people. Pick your phone home base.</td></tr>
+    <tr><td><strong>Day 3 — Seal the Desktop</strong></td><td>Set up desktop Focus, a work-only browser profile, and turn off email auto-refresh.</td></tr>
+    <tr><td><strong>Day 4 — First Block</strong></td><td>Run one 50-minute deep work block with the parking lot. Take a real, screen-free break after.</td></tr>
+    <tr><td><strong>Day 5 — Build the Tracker</strong></td><td>Create the Google Sheet (Daily + Weekly Score tabs). Plan tomorrow in blocks.</td></tr>
+    <tr><td><strong>Day 6 — Stack Two Blocks</strong></td><td>Run two blocks back-to-back. Log each in the sheet. Stretch toward 75–90 minutes.</td></tr>
+    <tr><td><strong>Day 7 — First Review</strong></td><td>Do the Friday Review. Read your numbers. Choose one improvement. You're now running the full Blueprint.</td></tr>
+  </table>
+
+  <h2>The Compounding Math</h2>
+  <p>Let's make the promise concrete. Suppose today you get <strong>two genuinely focused hours</strong> buried inside an eight-hour day — the rest lost to context-switching. After installing the Blueprint, you protect <strong>three 90-minute deep work blocks</strong>. That's <strong>4.5 focused hours</strong> — and because they're uninterrupted, each one is worth far more than a fractured hour was before.</p>
+
+  <p>You didn't add hours to your day. You stopped <em>bleeding</em> them. That is what "doubling your daily output" actually looks like: not working more, but finally keeping the focus you were losing all along.</p>
+
+  <div class="pull">You were never lazy. You were just <strong>unprotected</strong>. Now you're not.</div>
+
+  <h2>The One Rule That Holds It All Together</h2>
+  <p>If you forget everything else, keep this: <strong>protect the block.</strong> The Digital Shield protects it from the outside. The 90-minute rhythm protects it from within. The tracker proves it's working. Guard those few deep hours like they're the most valuable thing you own at work — because they are.</p>
+
+  <div class="callout nobreak">
+    <p class="ct blue">Your next 60 seconds</p>
+    <p>Close this book and do exactly one thing: open your phone's Focus settings and start building your Work mode. Not later. Now, while the intention is hot. The entire Blueprint begins with that one switch — and from there, momentum does the rest.</p>
+  </div>
+
+  <div class="divider"></div>
+  <p class="small">© The Focus Blueprint — A Remote Worker's Guide to Eliminating Distractions and Doubling Daily Output. This guide is for educational purposes and reflects general productivity research; it is not medical advice. Menu paths reflect current iOS and Android versions and may vary slightly by device and software update.</p>
+</section>
+
+</body>
+</html>
