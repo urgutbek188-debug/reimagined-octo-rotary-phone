@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The 5-Minute Focus Setup</title>
+<style>
+  :root{
+    --slate:#1f3a5f;--slate2:#2c4a6e;--deep:#16293f;--ink:#1c2b3a;--muted:#5d7184;
+    --mint:#3ecf8e;--mint-soft:#e6f9f0;--mint-line:#bde7d3;--blue:#3b82f6;--blue-soft:#eaf2fe;
+    --line:#e4e9ef;--bg:#ffffff;--panel:#f6f8fb;
+  }
+  *{box-sizing:border-box;}
+  @page{ size:8.5in 11in; margin:0.72in 0 0.72in; }
+  @page:first{ margin:0; }
+  html{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:var(--ink);margin:0;line-height:1.66;font-size:11.6pt;}
+  h1,h2,h3,h4{font-weight:700;letter-spacing:-.2px;color:var(--slate);}
+  .page{ padding:0 0.86in; }
+  section.page{ page-break-before:always; }
+  section.cover{ page-break-before:avoid; }
+
+  .cover{background:linear-gradient(155deg,#1f3a5f 0%,#244568 50%,#16293f 100%);color:#eaf1f8;height:11in;display:flex;flex-direction:column;justify-content:space-between;padding:0.95in 0.86in;}
+  .cover-top{display:flex;align-items:center;gap:14px;}
+  .cover-dot{width:13px;height:13px;border-radius:3px;background:var(--mint);transform:rotate(45deg);}
+  .cover-brand{letter-spacing:.4em;font-size:10pt;text-transform:uppercase;color:#aebfce;}
+  .free-badge{display:inline-block;font-size:10pt;letter-spacing:.18em;text-transform:uppercase;color:var(--deep);background:var(--mint);padding:8px 17px;border-radius:40px;font-weight:800;margin-bottom:22px;}
+  .cover-title{font-size:50pt;line-height:1.02;font-weight:800;margin:0 0 22px;color:#fff;letter-spacing:-1.5px;}
+  .cover-title span{color:var(--mint);}
+  .cover-sub{font-size:15pt;line-height:1.5;color:#c4d2e0;max-width:28em;font-weight:300;}
+  .cover-foot{border-top:1px solid rgba(255,255,255,.14);padding-top:20px;display:flex;justify-content:space-between;align-items:flex-end;}
+  .cover-author{font-size:9pt;color:#8da0b3;}
+  .cover-author b{display:block;color:#eaf1f8;font-size:13pt;margin-top:3px;font-weight:600;}
+  .cover-edition{font-size:8.5pt;color:#7f93a7;letter-spacing:.1em;text-transform:uppercase;text-align:right;}
+
+  .kicker{letter-spacing:.24em;text-transform:uppercase;font-size:9pt;color:var(--mint);font-weight:700;margin:0 0 12px;}
+  h1.chap{font-size:28pt;line-height:1.07;margin:0 0 18px;}
+  h1.chap span{color:#23a06a;}
+  h2{font-size:15.5pt;margin:26px 0 10px;padding-left:13px;border-left:3px solid var(--mint);page-break-after:avoid;}
+  h3{font-size:11pt;margin:18px 0 6px;color:var(--slate2);text-transform:uppercase;letter-spacing:.05em;}
+  p{margin:0 0 12px;}
+  strong{color:var(--slate);font-weight:700;}
+  .lead{font-size:13.5pt;line-height:1.55;color:#33475a;margin:0 0 20px;}
+  ul.clean{list-style:none;padding-left:2px;margin:6px 0 14px;}
+  ul.clean li{position:relative;padding-left:26px;margin:0 0 8px;}
+  ul.clean li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;background:var(--mint);border-radius:2px;transform:rotate(45deg);}
+
+  blockquote{margin:22px 0;padding:18px 22px;background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;}
+  blockquote .qt{font-size:8.6pt;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 7px;}
+  blockquote p{margin:0;font-size:13pt;line-height:1.45;color:var(--slate);font-weight:500;}
+  .path{font-family:"SFMono-Regular",Menlo,Consolas,monospace;font-size:9.2pt;background:var(--mint-soft);border:1px solid var(--mint-line);padding:2px 7px;border-radius:5px;color:#1d6b48;}
+
+  .step{display:flex;gap:15px;margin:0 0 14px;align-items:flex-start;}
+  .step-n{flex:0 0 30px;height:30px;border-radius:9px;background:var(--slate);color:#fff;font-weight:700;font-size:12pt;display:flex;align-items:center;justify-content:center;}
+  .step-b h4{font-size:11pt;margin:2px 0 3px;}
+  .step-b p{margin:0;font-size:10.6pt;}
+
+  .ai{background:linear-gradient(160deg,#1f3a5f,#16293f);color:#eaf1f8;border-radius:16px;padding:24px 26px;margin:24px 0 6px;}
+  .ai .ai-head{display:flex;align-items:center;gap:11px;margin:0 0 14px;}
+  .ai .ai-icon{width:26px;height:26px;border-radius:7px;background:var(--mint);color:var(--deep);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13pt;}
+  .ai .ai-title{font-size:12.5pt;color:#fff;font-weight:700;}
+  .ai ul{list-style:none;padding:0;margin:0;}
+  .ai li{position:relative;padding:0 0 11px 30px;margin:0;font-size:11pt;}
+  .ai li:last-child{padding-bottom:0;}
+  .ai li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--mint);font-weight:800;font-size:13pt;}
+  .ai li b{color:#fff;}
+
+  /* CTA box */
+  .cta{border:2px solid var(--mint);background:var(--mint-soft);border-radius:16px;padding:26px 28px;margin:22px 0 0;}
+  .cta .ct{font-size:9pt;letter-spacing:.16em;text-transform:uppercase;color:#1d6b48;font-weight:800;margin:0 0 6px;}
+  .cta h2{border:0;padding:0;margin:0 0 10px;font-size:19pt;color:var(--slate);}
+  .cta ul.clean li{margin-bottom:6px;font-size:10.6pt;}
+  .cta .btn{display:inline-block;margin-top:14px;background:var(--slate);color:#fff;font-weight:800;font-size:13pt;padding:15px 30px;border-radius:50px;text-decoration:none;letter-spacing:.01em;}
+  .cta .price{color:#23a06a;font-weight:800;}
+  a{color:var(--blue);font-weight:700;}
+  .small{font-size:9pt;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="page cover">
+  <div><div class="cover-top"><span class="cover-dot"></span><span class="cover-brand">The Focus Blueprint</span></div></div>
+  <div>
+    <span class="free-badge">Free Quick-Start Guide</span>
+    <h1 class="cover-title">The 5-Minute <span>Focus</span> Setup</h1>
+    <p class="cover-sub">The exact phone &amp; desk settings that block distractions — starting today. No apps. No willpower.</p>
+  </div>
+  <div class="cover-foot">
+    <div class="cover-author">Written by<b>Warren Mitchell</b></div>
+    <div class="cover-edition">A quick-start from<br>The Focus Blueprint</div>
+  </div>
+</section>
+
+<!-- PAGE 2 — INTRO -->
+<section class="page">
+  <p class="kicker">Start Here</p>
+  <h1 class="chap">Your Phone Isn't Just Distracting You — It's <span>Costing You Hours</span></h1>
+
+  <p class="lead">Every time your phone pulls you away from work, the real cost isn't the 10 seconds you glance at it. It's the climb back to concentration afterward.</p>
+
+  <blockquote>
+    <p class="qt">The hidden cost</p>
+    <p>Research shows it takes an average of <strong>23 minutes</strong> to fully refocus after a single interruption.</p>
+  </blockquote>
+
+  <p>Interrupted six times before lunch? You may never reach deep focus all morning. But here's the good news: <strong>this is a design problem, not a willpower problem</strong> — and you can fix the design in about five minutes.</p>
+
+  <p>This free guide gives you the fastest, highest-impact part of the system: a phone that <strong>defends your focus automatically</strong>, plus a 60-second desk reset. Do it once, and it protects you every workday after.</p>
+
+  <p>Ready? Grab your phone. Let's lock it down.</p>
+</section>
+
+<!-- PAGE 3 — THE SETUP -->
+<section class="page">
+  <p class="kicker">The Setup · 5 Minutes</p>
+  <h1 class="chap">Turn Your Phone Into a <span>Focus Machine</span></h1>
+
+  <h2>On iPhone</h2>
+  <div class="step"><div class="step-n">1</div><div class="step-b"><h4>Create a "Work" Focus</h4><p><span class="path">Settings → Focus → + → Custom</span>. Name it "Work."</p></div></div>
+  <div class="step"><div class="step-n">2</div><div class="step-b"><h4>Allow almost no one</h4><p>Under <strong>People</strong>, allow only 1–3 emergency contacts. Silence every other app — especially social, news &amp; games.</p></div></div>
+  <div class="step"><div class="step-n">3</div><div class="step-b"><h4>Put it on a schedule</h4><p><strong>Set a Schedule</strong> → your work hours, Mon–Fri. Now it arms itself every day automatically.</p></div></div>
+
+  <h2>On Android</h2>
+  <div class="step"><div class="step-n">1</div><div class="step-b"><h4>Open Digital Wellbeing</h4><p><span class="path">Settings → Digital Wellbeing → Focus mode</span>. (Tip: search Settings for "Digital Wellbeing.")</p></div></div>
+  <div class="step"><div class="step-n">2</div><div class="step-b"><h4>Pause your distracting apps</h4><p>Check every app that pulls you off task. Focus mode greys them out during work hours.</p></div></div>
+  <div class="step"><div class="step-n">3</div><div class="step-b"><h4>Set a schedule</h4><p>Tap <strong>Set a schedule</strong> → your work hours. Done — it runs on its own.</p></div></div>
+
+  <div class="ai">
+    <div class="ai-head"><span class="ai-icon">✓</span><span class="ai-title">Do This Now (2 minutes)</span></div>
+    <ul>
+      <li><b>Build the "Work" Focus / Focus mode</b> on your phone using the steps above.</li>
+      <li><b>Whitelist 3 people max.</b> Silence everything else.</li>
+      <li><b>Set the schedule</b> so it turns on by itself tomorrow morning.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PAGE 4 — DESK RESET + CTA -->
+<section class="page">
+  <p class="kicker">Bonus · 60 Seconds</p>
+  <h1 class="chap">The 60-Second <span>Desk Reset</span></h1>
+  <p>Before each focus session, run this once. It removes the triggers your shielded phone can't:</p>
+  <ul class="clean">
+    <li><strong>Phone in another room.</strong> Not a drawer — a different room. Distance is friction, and friction protects you.</li>
+    <li><strong>Close every non-essential browser tab.</strong> Each open tab is an open loop pulling at your attention.</li>
+    <li><strong>Write your ONE task on paper.</strong> One clear target kills the urge to wander.</li>
+  </ul>
+  <p>That's it. Phone shielded, desk reset — you've just removed 90% of what was stealing your focus.</p>
+
+  <div class="cta">
+    <p class="ct">This was just the warm-up</p>
+    <h2>Ready to double your daily output?</h2>
+    <p>You just fixed your phone. <strong>The Focus Blueprint</strong> gives you the complete system remote workers use to eliminate distractions for good:</p>
+    <ul class="clean">
+      <li>The full <strong>Digital Shield</strong> (desktop + advanced phone setup)</li>
+      <li><strong>Deep Work Blocks</strong> — the 90-minute method that doubles output</li>
+      <li>The <strong>Time-Blocking Tracker</strong> (free Google Sheet) to measure your progress</li>
+      <li>A <strong>7-Day Activation Plan</strong> to install it all in one week</li>
+    </ul>
+    <p style="margin-top:14px;">Get the complete 19-page guide for just <span class="price">$27</span> — covered by a 30-day money-back guarantee.</p>
+    <a class="btn" href="https://urgutbek.gumroad.com/l/focus-blueprint">Get The Focus Blueprint →</a>
+    <p class="small" style="margin-top:14px;">👉 thefocusblueprint at urgutbek.gumroad.com/l/focus-blueprint</p>
+  </div>
+</section>
+
+</body>
+</html>
